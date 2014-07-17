@@ -30,7 +30,7 @@ class UsersController extends AppController {
     );
 
     public function beforeFilter() {
-        $this->Auth->allow('add');
+        $this->Auth->allow('add', 'asociartarjeta');
     }
 /**
  * index method
@@ -63,9 +63,14 @@ class UsersController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->loadModel('Entrada');
+
 		if ($this->request->is('post')) {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
+
+				
+
 				$this->Session->setFlash(__('The user has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
@@ -131,7 +136,33 @@ class UsersController extends AppController {
     	}
 	}
 
-public function logout() {
-    return $this->redirect($this->Auth->logout());
-}
+	public function logout() {
+	    return $this->redirect($this->Auth->logout());
+	}
+
+	public function asociartarjeta() {
+
+        $this->loadModel('Entrada');
+        if ($this->request->is('post')) {
+            $datos = $this->data;
+            
+
+            $newUser = $this->User->create();
+            $newUser = array(
+                'User'=>array(
+                    'nombre' => $datos['User']['nombre']));
+            $this->User->save($newUser); 
+            $newUserId = $this->User->getLastInsertId();
+
+            $newEntrada = $this->Entrada->create();
+            $newEntrada = array(
+                'Entrada'=>array(
+                    'usuario_id' => $newUserId,
+                    'tarjeta' => $datos['Entrada']['tarjeta']));
+
+            $this->Entrada->save($newEntrada);          
+        }
+
+
+	}
 }
