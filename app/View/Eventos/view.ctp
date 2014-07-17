@@ -21,6 +21,11 @@
 			<?php echo h($evento['Evento']['descripcion']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Imagen'); ?></dt>
+		<dd>
+			<?php echo h($evento['Evento']['imagen']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">

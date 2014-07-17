@@ -7,6 +7,7 @@
 			<th><?php echo $this->Paginator->sort('tipo_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
 			<th><?php echo $this->Paginator->sort('descripcion'); ?></th>
+			<th><?php echo $this->Paginator->sort('imagen'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
@@ -19,6 +20,7 @@
 		</td>
 		<td><?php echo h($evento['Evento']['nombre']); ?>&nbsp;</td>
 		<td><?php echo h($evento['Evento']['descripcion']); ?>&nbsp;</td>
+		<td><?php echo h($evento['Evento']['imagen']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $evento['Evento']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $evento['Evento']['id'])); ?>

@@ -7,6 +7,7 @@
 		echo $this->Form->input('tipo_id');
 		echo $this->Form->input('nombre');
 		echo $this->Form->input('descripcion');
+		echo $this->Form->input('imagen');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
