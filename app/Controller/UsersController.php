@@ -13,8 +13,25 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	
+ public $components = array(
+        'Session','Paginator',
+        'Auth'=> array(
+        	'loginRedirect' => array(
+                'controller' => 'view',
+                'action' => 'index'
+            ),
+            'logoutRedirect' => array(
+                'controller' => 'login',
+                'action' => 'display',
+                'home'
+            )
+        )
+    );
 
+    public function beforeFilter() {
+        $this->Auth->allow('add');
+    }
 /**
  * index method
  *
@@ -101,4 +118,20 @@ class UsersController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+
+	public function login() {
+    	if ($this->request->is('post')) 
+    	{
+    		debug($this->Auth->login());
+        	if ($this->Auth->login()) 
+        	{
+            	return $this->redirect($this->Auth->redirect());
+        	}
+        	$this->Session->setFlash(__('Invalid username or password, try again'));
+    	}
+	}
+
+public function logout() {
+    return $this->redirect($this->Auth->logout());
+}
 }

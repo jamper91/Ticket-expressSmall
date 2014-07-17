@@ -11,7 +11,13 @@
 		echo $this->Form->input('direccion');
 		echo $this->Form->input('telefono');
 		echo $this->Form->input('celular');
-		echo $this->Form->input('fechanacimiento');
+		//echo $this->Form->input('fechanacimiento');
+		echo $this->Form->input('fechanacimiento', array(
+							    'label' => 'fechanacimiento',
+							    'dateFormat' => 'DMY',
+							    'minYear' => date('Y') - 70,
+    							'maxYear' => date('Y') - 18,
+							    ));
 		echo $this->Form->input('tiposangre');
 	?>
 	</fieldset>
