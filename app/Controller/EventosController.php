@@ -39,6 +39,28 @@ class EventosController extends AppController {
 		$options = array('conditions' => array('Evento.' . $this->Evento->primaryKey => $id));
 		$this->set('evento', $this->Evento->find('first', $options));
 	}
+        
+        public function comprar($id = null) {
+		if (!$this->Evento->exists($id)) {
+			throw new NotFoundException(__('Invalid evento'));
+		}
+                $idTipo= $evento['Tipo']['id'];
+		$options = array('conditions' => array('Evento.' . $this->Evento->primaryKey => $id));
+		$this->set('evento', $this->Evento->find('first', $options));
+                
+                $this->loadModel("Categoria");
+		$categoria = $this->Categoria->find("all", null);
+                $this->set('categoria', $categoria);
+                debug($categoria);
+	}
+        
+        
+        public function listar() {
+		$this->Evento->recursive = 0;
+		$this->set('eventos', $this->Paginator->paginate());
+	}
+        
+        
 
 /**
  * add method
