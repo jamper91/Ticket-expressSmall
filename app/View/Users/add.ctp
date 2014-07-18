@@ -19,9 +19,17 @@
     							'maxYear' => date('Y') - 18,
 							    ));
 		echo $this->Form->input('tiposangre');
+        ?>
+                <select name="data[User][tipo_documento]">
+                    <option value="1">Cedula Ciudadania</option>
+                    <option value="2">Pasaporte</option>
+                </select>
+        <?php
+		echo $this->Form->input('documento');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->end(__('Registrar')); ?>
+
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>

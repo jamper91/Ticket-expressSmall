@@ -43,20 +43,5 @@ class Venta extends AppModel {
  *
  * @var array
  */
-	public $belongsTo = array(
-		'Funcione' => array(
-			'className' => 'Funcione',
-			'foreignKey' => 'funcione_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'Usuario' => array(
-			'className' => 'Usuario',
-			'foreignKey' => 'usuario_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
+
 }

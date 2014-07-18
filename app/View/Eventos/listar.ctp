@@ -2,41 +2,35 @@
 	<h2><?php echo __('Eventos'); ?></h2>
         
         
+            
+        
+        
          <?php foreach ($eventos as $evento): ?>
-        <dl>
-		<dt><?php echo $this->Paginator->sort('nombre'); ?> </dt>
-		<dd>
+        <table>
+            <tr>
+		<td><?php echo $this->Paginator->sort('nombre'); ?> </td>
+		<td>
 			<?php echo h($evento['Evento']['nombre']); ?>
 			&nbsp;
-		</dd>
-		<dt> <?php echo $this->Paginator->sort('descripcion'); ?> </dt>
-		<dd>
+		</td>
+            </tr>
+            <tr>
+		<td> <?php echo $this->Paginator->sort('descripcion'); ?> </td>
+		<td>
 			<?php echo h($evento['Evento']['descripcion']); ?>
 			&nbsp;
-		</dd>
-              
-                 <dt> <?php echo $this->Paginator->sort('imagen'); ?> </dt>
-
-                
-                <dd>
-                    <img src="<?php echo h($evento['Evento']['imagen']);?>">
-                   
-
-			&nbsp;
-		</dd>
-                
-                
-                <dt class="actions"><?php echo __('¿Te gusta?'); ?></dt>
-
-                
-                <dd class="actions">
-                   	<?php echo $this->Html->link(__('Comprar'), array('action' => 'comprar', $evento['Evento']['id'])); ?>
-			&nbsp;
-		</dd>
-                
-        </dl>
-        
-        <div style="height: 70px;"></div>
+		</td>
+            </tr>
+            <tr>
+                <td colspan="2"><img src="<?php echo h($evento['Evento']['imagen']);?>"> </td>
+            </tr>
+            <tr>
+                <td><?php echo __('¿Te gusta?'); ?></td>
+                <td>
+                    <?php echo $this->Html->link(__('Comprar'), array('controller'=>'ventas','action' => 'comprar', $evento['Evento']['id'])); ?>
+                </td>
+            </tr>    
+        </table><br><br><br>
          <?php endforeach; ?>
         
        

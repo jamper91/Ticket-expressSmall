@@ -5,6 +5,7 @@
 	<?php
 		echo $this->Form->input('nombre');
 		echo $this->Form->input('codigo');
+		echo $this->Form->input('categoria_id');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

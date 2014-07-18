@@ -4,8 +4,7 @@
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('id_entrada'); ?></th>
-			<th><?php echo $this->Paginator->sort('id_evento'); ?></th>
+			<th><?php echo $this->Paginator->sort('evento_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -14,8 +13,7 @@
 	<?php foreach ($categorias as $categoria): ?>
 	<tr>
 		<td><?php echo h($categoria['Categoria']['id']); ?>&nbsp;</td>
-		<td><?php echo h($categoria['Categoria']['id_entrada']); ?>&nbsp;</td>
-		<td><?php echo h($categoria['Categoria']['id_evento']); ?>&nbsp;</td>
+		<td><?php echo h($categoria['Categoria']['evento_id']); ?>&nbsp;</td>
 		<td><?php echo h($categoria['Categoria']['nombre']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $categoria['Categoria']['id'])); ?>

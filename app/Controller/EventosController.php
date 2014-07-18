@@ -13,13 +13,16 @@ class EventosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator', 'Auth');
 
 /**
  * index method
  *
  * @return void
  */
+        public function beforeFilter() {
+        $this->Auth->allow('listar');
+    }
 	public function index() {
 		$this->Evento->recursive = 0;
 		$this->set('eventos', $this->Paginator->paginate());
@@ -44,14 +47,14 @@ class EventosController extends AppController {
 		if (!$this->Evento->exists($id)) {
 			throw new NotFoundException(__('Invalid evento'));
 		}
-                $idTipo= $evento['Tipo']['id'];
+//                $idTipo= $evento['Tipo']['id'];
 		$options = array('conditions' => array('Evento.' . $this->Evento->primaryKey => $id));
 		$this->set('evento', $this->Evento->find('first', $options));
-                
-                $this->loadModel("Categoria");
-		$categoria = $this->Categoria->find("all", null);
-                $this->set('categoria', $categoria);
-                debug($categoria);
+                debug($this->Evento->find('first', $options));
+//                $this->loadModel("Categoria");
+//		$categoria = $this->Categoria->find("all", null);
+//                $this->set('categoria', $categoria);
+//                debug($categoria);
 	}
         
         

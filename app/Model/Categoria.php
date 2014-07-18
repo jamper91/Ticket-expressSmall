@@ -12,28 +12,7 @@ class Categoria extends AppModel {
  *
  * @var array
  */
-	public $validate = array(
-		'id_entrada' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'id_evento' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-	);
+
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -55,6 +34,15 @@ class Categoria extends AppModel {
 			'limit' => '',
 			'offset' => '',
 			'finderQuery' => '',
+		)
+	);
+        public $belongsTo = array(
+		'Evento' => array(
+			'className' => 'Evento',
+			'foreignKey' => 'evento_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 

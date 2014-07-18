@@ -55,6 +55,8 @@ class CategoriasController extends AppController {
 				$this->Session->setFlash(__('The categoria could not be saved. Please, try again.'));
 			}
 		}
+                $eventos = $this->Categoria->Evento->find('list');
+		$this->set(compact('eventos'));
 		$funciones = $this->Categoria->Funcione->find('list');
 		$this->set(compact('funciones'));
 	}

@@ -71,20 +71,20 @@ class Funcione extends AppModel {
  *
  * @var array
  */
-	public $hasAndBelongsToMany = array(
-		'Categoria' => array(
-			'className' => 'Categoria',
-			'joinTable' => 'categorias_funciones',
-			'foreignKey' => 'funcione_id',
-			'associationForeignKey' => 'categoria_id',
-			'unique' => 'keepExisting',
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-		)
-	);
+//	public $hasAndBelongsToMany = array(
+//		'Categoria' => array(
+//			'className' => 'Categoria',
+//			'joinTable' => 'categorias_funciones',
+//			'foreignKey' => 'funcione_id',
+//			'associationForeignKey' => 'categoria_id',
+//			'unique' => 'keepExisting',
+//			'conditions' => '',
+//			'fields' => '',
+//			'order' => '',
+//			'limit' => '',
+//			'offset' => '',
+//			'finderQuery' => '',
+//		)
+//	);
 
 }

@@ -56,8 +56,7 @@ class FuncionesController extends AppController {
 			}
 		}
 		$eventos = $this->Funcione->Evento->find('list');
-		$categorias = $this->Funcione->Categorium->find('list');
-		$this->set(compact('eventos', 'categorias'));
+		$this->set(compact('eventos'));
 	}
 
 /**

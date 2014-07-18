@@ -1,5 +1,7 @@
 <?php
+
 App::uses('AppController', 'Controller');
+
 /**
  * Users Controller
  *
@@ -8,161 +10,186 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
-	
- public $components = array(
-        'Session','Paginator',
-        'Auth'=> array(
-        	'loginRedirect' => array(
-                'controller' => 'view',
-                'action' => 'index'
-            ),
-            'logoutRedirect' => array(
-                'controller' => 'login',
-                'action' => 'display',
-                'home'
-            )
-        )
-    );
+    /**
+     * Components
+     *
+     * @var array
+     */
+    public $components = array('Paginator', 'Auth');
 
     public function beforeFilter() {
         $this->Auth->allow('add', 'asociartarjeta');
     }
-/**
- * index method
- *
- * @return void
- */
-	public function index() {
-		$this->User->recursive = 0;
-		$this->set('users', $this->Paginator->paginate());
-	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->User->exists($id)) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
-		$this->set('user', $this->User->find('first', $options));
-	}
+    /**
+     * index method
+     *
+     * @return void
+     */
+    public function index() {
+        $this->User->recursive = 0;
+        $this->set('users', $this->Paginator->paginate());
+    }
 
-/**
- * add method
- *
- * @return void
- */
-	public function add() {
-		$this->loadModel('Entrada');
+    /**
+     * view method
+     *
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function view($id = null) {
+        if (!$this->User->exists($id)) {
+            throw new NotFoundException(__('Invalid user'));
+        }
+        $options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
+        $this->set('user', $this->User->find('first', $options));
+    }
 
-		if ($this->request->is('post')) {
-			$this->User->create();
-			if ($this->User->save($this->request->data)) {
+    /**
+     * add method
+     *
+     * @return void
+     */
+    public function add() {
+        $this->loadModel('Entrada');
 
-				
+        if ($this->request->is('post')) {
+            $this->User->create();
+            if ($this->User->save($this->request->data)) {
 
-				$this->Session->setFlash(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
-			}
-		}
-	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function edit($id = null) {
-		if (!$this->User->exists($id)) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
-			}
-		} else {
-			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
-			$this->request->data = $this->User->find('first', $options);
-		}
-	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function delete($id = null) {
-		$this->User->id = $id;
-		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->User->delete()) {
-			$this->Session->setFlash(__('The user has been deleted.'));
-		} else {
-			$this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
-		}
-		return $this->redirect(array('action' => 'index'));
-	}
+                $this->Session->setFlash(__('The user has been saved.'));
+                return $this->redirect(array('controller'=>'pages','action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+            }
+        }
+    }
 
-	public function login() {
-    	if ($this->request->is('post')) 
-    	{
-    		debug($this->Auth->login());
-        	if ($this->Auth->login()) 
-        	{
-            	return $this->redirect($this->Auth->redirect());
-        	}
-        	$this->Session->setFlash(__('Invalid username or password, try again'));
-    	}
-	}
+    /**
+     * edit method
+     *
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function edit($id = null) {
+        if (!$this->User->exists($id)) {
+            throw new NotFoundException(__('Invalid user'));
+        }
+        if ($this->request->is(array('post', 'put'))) {
+            if ($this->User->save($this->request->data)) {
+                $this->Session->setFlash(__('The user has been saved.'));
+                return $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+            }
+        } else {
+            $options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
+            $this->request->data = $this->User->find('first', $options);
+        }
+    }
 
-	public function logout() {
-	    return $this->redirect($this->Auth->logout());
-	}
+    /**
+     * delete method
+     *
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function delete($id = null) {
+        $this->User->id = $id;
+        if (!$this->User->exists()) {
+            throw new NotFoundException(__('Invalid user'));
+        }
+        $this->request->allowMethod('post', 'delete');
+        if ($this->User->delete()) {
+            $this->Session->setFlash(__('The user has been deleted.'));
+        } else {
+            $this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
+        }
+        return $this->redirect(array('action' => 'index'));
+    }
 
-	public function asociartarjeta() {
+    public function login() {
+        if ($this->request->is('post')) {
+            debug($this->Auth->login());
+            if ($this->Auth->login()) {
+                $this->Session->write('User.username', $this->request->data["User"]["username"]);
+                $options = array(
+                    'conditions' => array(
+                        "User.username" => $this->request->data["User"]["username"]
+                    ),
+                    'fields' => array(
+                        "User.id"
+                    ),
+                    'recursive' => -2
+                );
+                $this->Session->setFlash(__('Bienvenido '.$this->request->data["User"]["username"]));
+                $datos = $this->User->find('first', $options);
+                $this->Session->write('User.id', $datos['User']['id']);
+                return $this->redirect($this->Auth->redirect());
+            }
+            $this->Session->setFlash(__('Invalid username or password, try again'));
+        }
+    }
+
+    public function logout() {
+        return $this->redirect($this->Auth->logout());
+    }
+
+    public function asociartarjeta() {
 
         $this->loadModel('Entrada');
         if ($this->request->is('post')) {
             $datos = $this->data;
-            
+
 
             $newUser = $this->User->create();
             $newUser = array(
-                'User'=>array(
+                'User' => array(
                     'nombre' => $datos['User']['nombre']));
-            $this->User->save($newUser); 
+            $this->User->save($datos);
             $newUserId = $this->User->getLastInsertId();
 
             $newEntrada = $this->Entrada->create();
             $newEntrada = array(
-                'Entrada'=>array(
+                'Entrada' => array(
                     'usuario_id' => $newUserId,
                     'tarjeta' => $datos['Entrada']['tarjeta']));
 
-            $this->Entrada->save($newEntrada);          
+            $this->Session->setFlash("Operacion realizada con exito");
+            $this->Entrada->save($newEntrada);
+            $this->redirect(array('action' => 'asociartarjeta'));
         }
+    }
 
+    public function asociar() {
+        $this->loadModel('Entrada');
+        if ($this->request->is('post')) {
+            $datos = $this->data;
+            $options = array(
+                "conditions" => array(
+                    'User.documento' => $datos["User"]["documento"]
+                )
+            );
+            $usuario = $this->User->find("first", $options);
+            if ($usuario) {
+                $newEntrada = $this->Entrada->create();
+                $newEntrada = array(
+                    'Entrada' => array(
+                        'usuario_id' => $usuario["User"]["id"],
+                        'tarjeta' => $datos['Entrada']['tarjeta']));
 
-	}
+                $this->Session->setFlash("Operacion realizada con exito");
+                $this->Entrada->save($newEntrada);
+                $this->redirect(array('action' => 'asociartarjeta'));
+            }else{
+                
+            }
+        }
+    }
+
 }

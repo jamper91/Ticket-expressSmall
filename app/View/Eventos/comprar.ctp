@@ -24,7 +24,8 @@
 
 
 if ($evento['Tipo']['id']  == 1) {
-echo "tipo 1";
+    echo 'Conferencia';
+            
 } else {
     echo "tipo 2";
 }
